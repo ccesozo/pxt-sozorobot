@@ -256,7 +256,7 @@ namespace sozoRobot {
     */
     //% advanced=true
     //% blockId=CCE_hamabit_custom_rightTurn
-    //% block="turn right（ms） %duration| power （％） %powerAdjustment"
+    //% block="turn right（ms） %duration| power（％） %powerAdjustment"
     //% duration.shadow=timePicker
     //% powerAdjustment.min=0 powerAdjustment.max=200
     //% duration.defl=1000
