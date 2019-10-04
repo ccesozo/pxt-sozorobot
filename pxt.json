@@ -1,6 +1,6 @@
 {
     "name": "pxt-sozorobot",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "CCE hama:bit robot car",
     "dependencies": {
         "core": "*",
