@@ -16,109 +16,105 @@ enum CarDirection {
 //% weight=112 color=#00A654 icon="\uf1b9" block="sozoRobot"
 
 namespace sozoRobot {
-    let leftMoterPin = AnalogPin.P1
-    let rightMoterPin = AnalogPin.P2
-    let leftMoterPowerSet = 20
-    let rightMoterPowerSet = 20
+    let leftPinSet = AnalogPin.P1
+    let rightPinSet = AnalogPin.P2
+    let leftSpeedSet = 20
+    let rightSpeedSet = 20
 
     /**
-    * initialization sozorobot car
-    * @param left describe parameter here, eg: AnalogPin.P1
-    * @param right describe parameter here, eg: AnalogPin.P2
+    * initialization wheel pin
+    * @param leftPin describe IO pin for left wheel, eg: AnalogPin.P1
+    * @param rightPin describe IO pin for right wheel, eg: AnalogPin.P2
     */
-
-    //% blockId=custom_init block="set left wheel pin %leftPin|right wheel pin %rightPin"
-    export function initWheel(leftPin: AnalogPin, rightPin: AnalogPin): void {
-        leftMoterPin = leftPin
-        rightMoterPin = rightPin
+    //% blockId=CCE_hamabit_wheel_pin
+    //% block="set left wheel pin %leftPin| right wheel pin %rightPin"
+    export function wheelPin(leftPin: AnalogPin, rightPin: AnalogPin): void {
+        leftPinSet = leftPin
+        rightPinSet = rightPin
     }
 
     /**
     * initialization wheel speed
-    * @param leftSpeed describe parameter from 0(min) to 100(max) here, eg: 15
-    * @param rightSpeed describe parameter from 0(min) to 100(max) here, eg: 15
+    * @param leftSpeed describe servo power from 0(min) to 100(max) here, eg: 15
+    * @param rightSpeed describe servo power from 0(min) to 100(max) here, eg: 15
     */
-    //% blockId=CCE_hamabit_servos_speed
+    //% blockId=CCE_hamabit_wheel_speed
     //% block="set left wheel speed %leftSpeed| right wheel speed %rightSpeed"
     //% leftSpeed.min=0 leftSpeed.max=100
     //% rightSpeed.min=0 rightSpeed.max=100
     //% leftSpeed.defl=20
     //% rightSpeed.defl=20
-    export function initSpeed(leftSpeed: number, rightSpeed: number): void {
-        leftMoterPowerSet = leftSpeed
-        rightMoterPowerSet = rightSpeed
+    export function wheelSpeed(leftSpeed: number, rightSpeed: number): void {
+        leftSpeedSet = leftSpeed
+        rightSpeedSet = rightSpeed
     }
 
     /**
     * Drives forwards. Call stop to stop
     */
     //% blockId=CCE_hamabit_servos_forward
-    // block="drive forward"
     export function forward(powerCoefficient: number): void {
-        let leftMoterPower = 9 * leftMoterPowerSet * (powerCoefficient / 100) + 1500
-        let rightMoterPower = -9 * rightMoterPowerSet * (powerCoefficient / 100) + 1500
+        let leftMoterPower = 9 * leftSpeedSet * (powerCoefficient / 100) + 1500
+        let rightMoterPower = -9 * rightSpeedSet * (powerCoefficient / 100) + 1500
         if (leftMoterPower > 2400) {
             leftMoterPower = 2400
         }
         if (rightMoterPower < 600) {
             rightMoterPower = 600
         }
-        pins.servoSetPulse(leftMoterPin, leftMoterPower)
-        pins.servoSetPulse(rightMoterPin, rightMoterPower)
+        pins.servoSetPulse(leftPinSet, leftMoterPower)
+        pins.servoSetPulse(rightPinSet, rightMoterPower)
     }
 
     /**
     * Drives backwards. Call stop to stop
     */
     //% blockId=CCE_hamabit_servos_backward
-    // block="drive backward"
     export function backward(powerCoefficient: number): void {
-        let leftMoterPower = -9 * leftMoterPowerSet * (powerCoefficient / 100) + 1500
-        let rightMoterPower = 9 * rightMoterPowerSet * (powerCoefficient / 100) + 1500
+        let leftMoterPower = -9 * leftSpeedSet * (powerCoefficient / 100) + 1500
+        let rightMoterPower = 9 * rightSpeedSet * (powerCoefficient / 100) + 1500
         if (leftMoterPower < 600) {
             leftMoterPower = 600
         }
         if (rightMoterPower > 2400) {
             rightMoterPower = 2400
         }
-        pins.servoSetPulse(leftMoterPin, leftMoterPower)
-        pins.servoSetPulse(rightMoterPin, rightMoterPower)
+        pins.servoSetPulse(leftPinSet, leftMoterPower)
+        pins.servoSetPulse(rightPinSet, rightMoterPower)
     }
 
     /**
     * Turns left. Call stop to stop
     */
     //% blockId=CCE_hamabit_servos_left
-    // block="turn left"
     export function left(powerCoefficient: number): void {
-        let leftMoterPower = -9 * leftMoterPowerSet * (powerCoefficient / 100) + 1500
-        let rightMoterPower = -9 * rightMoterPowerSet * (powerCoefficient / 100) + 1500
+        let leftMoterPower = -9 * leftSpeedSet * (powerCoefficient / 100) + 1500
+        let rightMoterPower = -9 * rightSpeedSet * (powerCoefficient / 100) + 1500
         if (leftMoterPower < 600) {
             leftMoterPower = 600
         }
         if (rightMoterPower < 600) {
             rightMoterPower = 600
         }
-        pins.servoSetPulse(leftMoterPin, leftMoterPower)
-        pins.servoSetPulse(rightMoterPin, rightMoterPower)
+        pins.servoSetPulse(leftPinSet, leftMoterPower)
+        pins.servoSetPulse(rightPinSet, rightMoterPower)
     }
 
     /**
     * Turns right. Call stop to stop
     */
     //% blockId=CCE_hamabit_servos_right
-    // block="turn right"
     export function right(powerCoefficient: number): void {
-        let leftMoterPower = 9 * leftMoterPowerSet * (powerCoefficient / 100) + 1500
-        let rightMoterPower = 9 * rightMoterPowerSet * (powerCoefficient / 100) + 1500
+        let leftMoterPower = 9 * leftSpeedSet * (powerCoefficient / 100) + 1500
+        let rightMoterPower = 9 * rightSpeedSet * (powerCoefficient / 100) + 1500
         if (leftMoterPower > 2400) {
             leftMoterPower = 2400
         }
         if (rightMoterPower > 2400) {
             rightMoterPower = 2400
         }
-        pins.servoSetPulse(leftMoterPin, leftMoterPower)
-        pins.servoSetPulse(rightMoterPin, rightMoterPower)
+        pins.servoSetPulse(leftPinSet, leftMoterPower)
+        pins.servoSetPulse(rightPinSet, rightMoterPower)
     }
 
     /**
@@ -209,8 +205,8 @@ namespace sozoRobot {
     //% blockID=CCE_hamabit_drive_stop
     //% block="stop"
     export function stop(): void {
-        pins.digitalWritePin(<number>leftMoterPin, 0)
-        pins.digitalWritePin(<number>rightMoterPin, 0)
+        pins.digitalWritePin(<number>leftPinSet, 0)
+        pins.digitalWritePin(<number>rightPinSet, 0)
     }
 
     /**
